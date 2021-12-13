@@ -26,13 +26,13 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link" href="index.html">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Upcoming</a>
+                <a class="nav-link active">Upcoming</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">New Submission</a>
+                <a class="nav-link" href="/Code/signup.html">New Submission</a>
               </li>
             </ul>
           </div>
@@ -82,7 +82,7 @@
             for (let i = 0; i < keys.length; i++) {
               const key = keys[i];
               console.log(key, data[key]);
-              document.getElementById("replace").innerHTML += data;
+              document.getElementById("replace").innerHTML += JSON.stringify(data);
             }
         });
     };
