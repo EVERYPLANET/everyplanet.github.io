@@ -202,10 +202,11 @@
     {
       var username=document.getElementById("usernameIn").value;
       var password=document.getElementById("passwordIn").value;
+      var tickets=document.getElementById("ticketsIn").value;
       var date=document.getElementById("dateIn").value;
       var location=document.getElementById("locationIn").value;
 
-			if (username == "" || password == "" || date == "" || location=="") {
+			if (username == "" || password == "" || date == "" || location=="" || tickets=="") {
       	document.getElementById("error2").innerHTML = "Ensure all fields are completed!";
         return;
       }
@@ -215,7 +216,8 @@
       {
         username       : username,
         location :	location,
-        date  :	date
+        date  :	date,
+        tickets : tickets
       };
       
       const newPostKey = push(child(ref(myDB),"/concerts/")).key;

@@ -12,6 +12,11 @@
     height: 150px;
 }
 
+.img-style-list {
+    width: 20%;
+    height: 40px;
+}
+
 .padded {
     margin: 8px;
 }
