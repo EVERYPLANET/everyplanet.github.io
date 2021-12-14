@@ -44,7 +44,7 @@
           </div>
         </div>
     </nav>
-    <div id="replace" class="padded"></div>
+    <div id="replace" class="padded container"></div>
     
 
 
@@ -85,14 +85,21 @@
         for (let i = 0; i < keys.length; i++) {
           var div = document.createElement('div');
           document.getElementById("replace").appendChild(div);
-          div.className = "container container-custom rounded";
+          div.className = "row";
               
+          var columnSmall = document.createElement('div');
+          var columnLarge = document.createElement('div');
+          columnSmall.className = "col-4";
+          colummLarge.className= "col-8";
+          div.append(columnSmall);
+          div.append(colummLarge);
+
           const key = keys[i];
 
-          div.innerHTML += '<img class="rounded float-left img-style-list" src="'+ data[key].image +'"> </img> <br />'
-          div.innerHTML += '<h1>'+ data[key].username +"</h1>"
-          div.innerHTML += 'Location: '+ data[key].location +"<br />"
-          div.innerHTML += 'Date: '+ data[key].date +'<br>'
+          columnSmall.innerHTML += '<img class="rounded float-left img-style-list" src="'+ data[key].image +'"> </img> <br />'
+          columnLarge.innerHTML += '<h1>'+ data[key].username +"</h1>"
+          columnLarge.innerHTML += 'Location: '+ data[key].location +"<br />"
+          columnLarge.innerHTML += 'Date: '+ data[key].date +'<br>'
               
         }
     });
