@@ -76,7 +76,7 @@
   window.onload = function ()
   {
     const db = getDatabase();
-    const dbRef = ref(db, '/artists/');
+    const dbRef = ref(db, '/concerts/');
     onValue(dbRef, (snapshot) => {
         //const data = JSON.parse(JSON.stringify(snapshot.val()));
         const data = snapshot.val();
@@ -88,14 +88,11 @@
           div.className = "container container-custom rounded";
               
           const key = keys[i];
-          console.log(key, data[key]);
-					console.log(data[key].email);
-              
-          div.innerHTML += '<img class="img-fluid img-style" src="'+ data[key].picture +'"> </img> <br />'
+
+          div.innerHTML += '<img class="img-fluid img-style" src="'+ data[key].image +'"> </img> <br />'
           div.innerHTML += '<h1>'+ data[key].username +"</h1>"
-          div.innerHTML += 'Genre: '+ data[key].genre +"<br />"
-          div.innerHTML += 'Email: '+ data[key].email +'<br>'
-          div.innerHTML += 'Spotify: <a class="link-success" href="'+ data[key].spotify +'"> Click Here!</a><br></p>'
+          div.innerHTML += 'Location: '+ data[key].location +"<br />"
+          div.innerHTML += 'Date: '+ data[key].date +'<br>'
               
         }
     });

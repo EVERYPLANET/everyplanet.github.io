@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="https://glitch.com/favicon.ico" />
+    <link rel="stylesheet" href="style.css">
 
     <title>Concerts In Town</title>
 
@@ -55,21 +56,24 @@
     <div class="accordion">
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingOne">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              Artist Sign-up
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+              Artist Submission
             </button>
           </h2>
           <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
             <div class="accordion-body">
                 <div class="mb-3">
                     <label id="username" class="form-label">Username</label>
-                    <input id="usernameIn" class="form-control"/>
+                    <input id="makeusernameIn" class="form-control"/>
                   </div>  
                   <div class="mb-3">
                     <label id="email" class="form-label">Email</label>
                     <input id="emailIn" class="form-control"/>
                   </div>
-            
+                  <div class="mb-3">
+                    <label id="password" class="form-label">Artist Password</label>
+                    <input id="makepasswordIn" class="form-control"/>
+                  </div>
                   <div class="mb-3">
                     <label id="spotify" class="form-label">Spotify Link</label>
                     <input id="spotifyIn" class="form-control"/>
@@ -92,8 +96,9 @@
                     </select>
                   </div>
                   <hr/>
+                  <p id="error1" class="error"></p>
                   <div class="mb-3">
-                    <button id="signupButton"  class="btn btn-primary">Sign Up</button>
+                    <button id="artistSignupButton"  class="btn btn-primary">Submit</button>
                   </div>
             </div>
           </div>
@@ -101,22 +106,35 @@
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingTwo">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-              Artist Log-in
+              Concert Submission
             </button>
           </h2>
           <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
             <div class="accordion-body">
                 <div class="mb-3">
-                    <label id="username" class="form-label">Username</label>
+                    <label id="username" class="form-label">Artist Username</label>
                     <input id="usernameIn" class="form-control"/>
                 </div>  
                 <div class="mb-3">
-                    <label id="password" class="form-label">Password</label>
+                    <label id="password" class="form-label">Artist Password</label>
                     <input id="passwordIn" class="form-control"/>
                 </div>
-                <hr/>
                 <div class="mb-3">
-                    <button id="loginButton"  class="btn btn-primary">Login</button>
+                  <label id="location" class="form-label">Location</label>
+                  <input id="locationIn" class="form-control"/>
+                </div>
+                <div class="mb-3">
+                  <label id="tickets" class="form-label">Ticket Link</label>
+                  <input id="ticketsIn" class="form-control"/>
+                </div>
+                <div class="mb-3">
+                  <label id="date" class="form-label">Date</label>
+                  <input id="dateIn" type="date" class="form-control"/>
+                </div>
+                <hr/>
+                <p id="error2" class="error"></p>
+                <div class="mb-3">
+                    <button id="artistsConcertButton"  class="btn btn-primary">Submit</button>
                 </div>
             </div>
           </div>
@@ -146,13 +164,19 @@
   
   window.onload = function ()
   {
-    document.getElementById("signupButton").onclick = function ()
+    document.getElementById("artistSignupButton").onclick = function ()
     {
-      var username=document.getElementById("usernameIn").value;
+      var username=document.getElementById("makeusernameIn").value;
+      var password=document.getElementById("makepasswordIn").value;
       var email=document.getElementById("emailIn").value;
       var spotify=document.getElementById("spotifyIn").value;
       var picture=document.getElementById("pictureIn").value;
       var genre=document.getElementById("genreIn").value;
+      
+      if (username == "" || password == "" || email == "" || spotify=="" || picture == "") {
+      	document.getElementById("error1").innerHTML = "Ensure all fields are completed!";
+        return;
+      }
       
       const myDB = getDatabase();
       const record =
@@ -168,6 +192,36 @@
       const updates = {};
       
       updates["/artists/" + newPostKey] = record;
+      window.alert("New record inserted with key : " + newPostKey);
+      
+      return update(ref(myDB),updates);
+    };  
+
+
+    document.getElementById("artistsConcertButton").onclick = function ()
+    {
+      var username=document.getElementById("usernameIn").value;
+      var password=document.getElementById("passwordIn").value;
+      var date=document.getElementById("dateIn").value;
+      var location=document.getElementById("locationIn").value;
+
+			if (username == "" || password == "" || date == "" || location=="") {
+      	document.getElementById("error2").innerHTML = "Ensure all fields are completed!";
+        return;
+      }
+
+      const myDB = getDatabase();
+      const record =
+      {
+        username       : username,
+        location :	location,
+        date  :	date
+      };
+      
+      const newPostKey = push(child(ref(myDB),"/concerts/")).key;
+      const updates = {};
+      
+      updates["/concerts/" + newPostKey] = record;
       window.alert("New record inserted with key : " + newPostKey);
       
       return update(ref(myDB),updates);

@@ -2,6 +2,7 @@
 .container-custom {
     background-color: #c7cfd1;
     font-family: 'Cinzel', serif;
+    font-size: 180%;
 }
 .img-style {
     border-radius: 2%; 
@@ -13,4 +14,8 @@
 
 .padded {
     margin: 8px;
+}
+
+.error {
+    color: red;
 }
