@@ -85,27 +85,45 @@
         for (let i = 0; i < keys.length; i++) {
         
         const keyConcerts = keys[i];
-  
-        var div = document.createElement('div');
-        document.getElementById("replace").appendChild(div);
-        div.className = "row bg-success rounded";
-        div.style.margin ="10px";
+
+        var artistsRef = ref(db, '/artists/');
+        var pictures = "";
+        
+        
+        onValue(artistsRef, (artistsSnapshot) => {
+          const artistData = artistsSnapshot.val();
+          const artistKeys = Object.keys(artistData);
+
+          for (let j = 0; j < artistKeys.length; j++) {
+            const keyArtists = artistKeys[j];
+ 
+            
+            if (artistData[keyArtists].username == data[keyConcerts].username) {
+            	console.log("true");	
+              pictures = artistData[keyArtists].picture;
               
-        var columnSmall = document.createElement('div');
-        var columnLarge = document.createElement('div');
-        columnSmall.className = "col-4";
-        columnLarge.className= "col-8";
-        div.append(columnSmall);
-        div.append(columnLarge);
+              var div = document.createElement('div');
+              document.getElementById("replace").appendChild(div);
+              div.className = "row bg-success rounded";
+              div.style.margin ="10px";
 
+              var columnSmall = document.createElement('div');
+              var columnLarge = document.createElement('div');
+              columnSmall.className = "col-4";
+              columnLarge.className= "col-8";
+              div.append(columnSmall);
+              div.append(columnLarge);
 
-
-        columnLarge.innerHTML += '<h1>'+ data[keyConcerts].username +"</h1>"
-        columnLarge.innerHTML += 'Location: '+ data[keyConcerts].location +"<br />"
-        columnLarge.innerHTML += 'Date: '+ data[keyConcerts].date +'<br>'
-        columnLarge.innerHTML += 'Tickets: <a class="link-success" href="'+ data[keyConcerts].tickets +'"> Click Here!</a><br></p>'
-
-        }
+              console.log(pictures);
+              columnSmall.innerHTML += '<img class="rounded float-left img-style-list" src="'+ pictures +'"> </img> <br />'
+              columnLarge.innerHTML += '<h1>'+ data[keyConcerts].username +"</h1>"
+              columnLarge.innerHTML += 'Location: '+ data[keyConcerts].location +"<br />"
+              columnLarge.innerHTML += 'Date: '+ data[keyConcerts].date +'<br>'
+              columnLarge.innerHTML += 'Tickets: <a class="link-success" href="'+ data[keyConcerts].tickets +'"> Click Here!</a><br></p>'
+             }
+          }
+        });
+      }
     });
   }
 </script>
