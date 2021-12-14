@@ -1,7 +1,7 @@
 
 .container-custom {
     background-color: #c7cfd1;
-    font-family: 'Balsamiq Sans', cursive;
+    font-family: 'Cinzel', serif;
 }
 .img-style {
     border-radius: 2%; 
@@ -12,5 +12,5 @@
 }
 
 .padded {
-    padding: 10px;
+    margin: 8px;
 }

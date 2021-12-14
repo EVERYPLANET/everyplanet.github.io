@@ -7,8 +7,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital@1&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500&display=swap" rel="stylesheet">
     <title>Concerts In Town</title>
 
     <!-- import the webpage's stylesheet -->
@@ -33,7 +32,10 @@
                 <a class="nav-link" href="/index.html">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active">Upcoming</a>
+                <a class="nav-link active">Artists</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="/Code/concerts.html">Concerts</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/Code/signup.html">New Submission</a>
@@ -83,16 +85,17 @@
         for (let i = 0; i < keys.length; i++) {
           var div = document.createElement('div');
           document.getElementById("replace").appendChild(div);
-          div.className = "container container-custom rounded padded";
+          div.className = "container container-custom rounded";
               
           const key = keys[i];
           console.log(key, data[key]);
 					console.log(data[key].email);
               
           div.innerHTML += '<img class="img-fluid img-style" src="'+ data[key].picture +'"> </img> <br />'
-          div.innerHTML += '<h2>Username: '+ data[key].username +"</h2>"
+          div.innerHTML += '<h1>'+ data[key].username +"</h1>"
           div.innerHTML += 'Genre: '+ data[key].genre +"<br />"
-          div.innerHTML += 'Email: '+ data[key].email +'<br><br></p>'
+          div.innerHTML += 'Email: '+ data[key].email +'<br>'
+          div.innerHTML += 'Spotify: <a class="link-success" href="'+ data[key].spotify +'"> Click Here!</a><br></p>'
               
         }
     });
