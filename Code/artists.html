@@ -76,7 +76,7 @@
   window.onload = function ()
   {
     const db = getDatabase();
-    var dbRef = ref(db, '/concerts/');
+    const dbRef = ref(db, '/concerts/');
     onValue(dbRef, (snapshot) => {
         //const data = JSON.parse(JSON.stringify(snapshot.val()));
         const data = snapshot.val();
@@ -86,15 +86,15 @@
         
         	const keyConcerts = keys[i];
         
-        	dbRef = ref(db, '/artists/');
-        	onValue(dbRef, (snapshot) => {
+        	const dbRef2 = ref(db, '/artists/');
+        	onValue(dbRef2, (snapshot) => {
           	for (let j = 0; j < keys.length; i++){
             	const keyArtists = keys[j];
             	if (data[keyConcerts].username == data[keyArtists].username) {
               	var picture = data[keyArtists].picture;
               }
             }
-          	});
+          });
         
         
           var div = document.createElement('div');
