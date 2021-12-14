@@ -1,8 +1,9 @@
 
 .container-custom {
-    background-color: #30474d;
+    background-color: #c7cfd1;
     font-family: 'Cinzel', serif;
     font-size: 180%;
+    border-radius: 4px;
 }
 .img-style {
     border-radius: 2%; 
