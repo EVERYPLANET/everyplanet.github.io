@@ -44,7 +44,7 @@
           </div>
         </div>
     </nav>
-    <div id="replace" class="padded"></div>
+    <div id="replace" class="padded container"></div>
     
 
 
@@ -76,27 +76,47 @@
   window.onload = function ()
   {
     const db = getDatabase();
-    const dbRef = ref(db, '/artists/');
+    var dbRef = ref(db, '/concerts/');
     onValue(dbRef, (snapshot) => {
         //const data = JSON.parse(JSON.stringify(snapshot.val()));
         const data = snapshot.val();
         const keys = Object.keys(data);
         document.getElementById("replace").innerHTML = "";
         for (let i = 0; i < keys.length; i++) {
+        
+        	const keyConcerts = keys[i];
+        
+        	dbRef = ref(db, '/artists/');
+        	onValue(dbRef, (snapshot) => {
+          	for (let j = 0; j < keys.length; i++){
+            	const keyArtists = keys[j];
+            	if (data[keyConcerts].username == data[keyArtists].username) {
+              	var picture = data[keyArtists].picture;
+              }
+            }
+          	});
+        
+        
           var div = document.createElement('div');
           document.getElementById("replace").appendChild(div);
-          div.className = "container container-custom rounded";
+          div.className = "row bg-success rounded";
+          div.style.margin ="10px";
               
-          const key = keys[i];
-          console.log(key, data[key]);
-					console.log(data[key].email);
-              
-          div.innerHTML += '<img class="img-fluid img-style" src="'+ data[key].picture +'"> </img> <br />'
-          div.innerHTML += '<h1>'+ data[key].username +"</h1>"
-          div.innerHTML += 'Genre: '+ data[key].genre +"<br />"
-          div.innerHTML += 'Email: '+ data[key].email +'<br>'
-          div.innerHTML += 'Spotify: <a class="link-success" href="'+ data[key].spotify +'"> Click Here!</a><br></p>'
-              
+          var columnSmall = document.createElement('div');
+          var columnLarge = document.createElement('div');
+          columnSmall.className = "col-4";
+          columnLarge.className= "col-8";
+          div.append(columnSmall);
+          div.append(columnLarge);
+
+
+
+          columnSmall.innerHTML += '<img class="rounded float-left img-style-list" src="'+ data[keyConcerts].image +'"> </img> <br />'
+          columnLarge.innerHTML += '<h1>'+ data[keyConcerts].username +"</h1>"
+          columnLarge.innerHTML += 'Location: '+ data[keyConcerts].location +"<br />"
+          columnLarge.innerHTML += 'Date: '+ data[keyConcerts].date +'<br>'
+          columnLarge.innerHTML += 'Tickets: <a class="link-success" href="'+ data[keyConcerts].tickets +'"> Click Here!</a><br></p>'
+
         }
     });
   }
