@@ -5,10 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="https://glitch.com/favicon.ico" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital@1&display=swap" rel="stylesheet">
+
     <title>Concerts In Town</title>
 
     <!-- import the webpage's stylesheet -->
-    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
@@ -38,11 +42,9 @@
           </div>
         </div>
     </nav>
-
-    <button id="testing">click me!</button>
-    <div id="replace">
+    <div id="replace" class="padded"></div>
     
-    </div>
+
 
 
     
@@ -71,30 +73,28 @@
 
   window.onload = function ()
   {
-    document.getElementById("testing").onclick = function ()
-    {
-        const db = getDatabase();
-        const dbRef = ref(db, '/artists/');
-        onValue(dbRef, (snapshot) => {
-            //const data = JSON.parse(JSON.stringify(snapshot.val()));
-            const data = snapshot.val();
-            const keys = Object.keys(data);
-            for (let i = 0; i < keys.length; i++) {
-            	var div = document.createElement('div');
-              document.getElementById("replace").appendChild(div);
-              div.className = "container bg-secondary";
+    const db = getDatabase();
+    const dbRef = ref(db, '/artists/');
+    onValue(dbRef, (snapshot) => {
+        //const data = JSON.parse(JSON.stringify(snapshot.val()));
+        const data = snapshot.val();
+        const keys = Object.keys(data);
+        document.getElementById("replace").innerHTML = "";
+        for (let i = 0; i < keys.length; i++) {
+          var div = document.createElement('div');
+          document.getElementById("replace").appendChild(div);
+          div.className = "container container-custom rounded padded";
               
-              const key = keys[i];
-              console.log(key, data[key]);
-							console.log(data[key].email);
+          const key = keys[i];
+          console.log(key, data[key]);
+					console.log(data[key].email);
               
-              div.innerHTML += '<img class="rounded float-left sizing" src="'+ data[key].picture +'"> </img> <br />'
-              div.innerHTML += 'Username: '+ data[key].username +"<br />"
-              div.innerHTML += 'Genre: '+ data[key].genre +"<br />"
-              div.innerHTML += 'Email: '+ data[key].email +'</p>'
+          div.innerHTML += '<img class="img-fluid img-style" src="'+ data[key].picture +'"> </img> <br />'
+          div.innerHTML += '<h2>Username: '+ data[key].username +"</h2>"
+          div.innerHTML += 'Genre: '+ data[key].genre +"<br />"
+          div.innerHTML += 'Email: '+ data[key].email +'<br><br></p>'
               
-            }
-        });
-    };
+        }
+    });
   }
 </script>
