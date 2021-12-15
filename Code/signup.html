@@ -147,9 +147,10 @@
 </html>
 
 <script type="module">
+
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-analytics.js";
-  import { getDatabase,ref,set,child,push,update } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-database.js";
+  import { getDatabase,ref,set,child,push,update, onValue } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-database.js";
     
   const firebaseConfig =
   {
@@ -180,15 +181,38 @@
       	document.getElementById("error1").innerHTML = "Ensure all fields are completed!";
         return;
       }
+
+			const myDB = getDatabase();
+      const dbRef = ref(myDB, '/artists/');
+      onValue(dbRef, (snapshot) => {
+        const data = snapshot.val();
+        const keys = Object.keys(data);
+        for (let i = 0; i < keys.length; i++) {              
+          const key = keys[i];
+          if(username == data[key].username) {
+            document.getElementById("error1").innerHTML = "Username already taken!";
+            return;
+          }       
+              
+        }
+      });
+
+      var emailList = email.split("@");
+
+      if (email.search("@") == -1 || emailList[0].length < 3) {
+        document.getElementById("error1").innerHTML = "Invalid Email!";
+        return;
+      }
       
-      const myDB = getDatabase();
+      
       const record =
       {
         username       : username,
 		    email       :	email,
         spotify :	spotify,
         picture  :	picture,
-		    genre  :	genre
+		    genre  :	genre,
+        password : password
       };
       
       const newPostKey = push(child(ref(myDB),"/artists/")).key;
@@ -213,23 +237,45 @@
       	document.getElementById("error2").innerHTML = "Ensure all fields are completed!";
         return;
       }
-
+      
       const myDB = getDatabase();
-      const record =
-      {
-        username       : username,
-        location :	location,
-        date  :	date,
-        tickets : tickets
-      };
-      
-      const newPostKey = push(child(ref(myDB),"/concerts/")).key;
-      const updates = {};
-      
-      updates["/concerts/" + newPostKey] = record;
-      window.alert("New record inserted with key : " + newPostKey);
-      
-      return update(ref(myDB),updates);
+			const dbRef = ref(myDB, '/artists/');
+      onValue(dbRef, (snapshot2) => {
+        const data = snapshot2.val();
+        const keys = Object.keys(data);
+        for (let i = 0; i < keys.length; i++) {              
+          const key = keys[i];
+          if(username == data[key].username) {
+          	console.log("username verified");
+            if (password == data[key].password) {
+            	const record =
+                {
+                  username       : username,
+                  location :	location,
+                  date  :	date,
+                  tickets : tickets
+                };
+
+              const newPostKey = push(child(ref(myDB),"/concerts/")).key;
+              const updates = {};
+
+              updates["/concerts/" + newPostKey] = record;
+              window.alert("New record inserted with key : " + newPostKey);
+
+              return update(ref(myDB),updates);
+              document.getElementById("error2").innerHTML = "";
+              break;
+            }else{
+            	document.getElementById("error2").innerHTML = "Invalid email or password!";
+              continue;
+            }
+          }else{
+          	document.getElementById("error2").innerHTML = "Invalid email or password!";
+            continue;
+          }         
+        }
+      });
     };  
   };
+
 </script>
