@@ -30,15 +30,8 @@
     border-top: 3px solid rgb(149, 173, 148);
 }
 
-.centered {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-.floating {
-    position: relative;
-    text-align: center;
-    color: white;
-  }
+.landing {
+    background: linear-gradient(to bottom, rgba(200, 204, 192, 0.164), rgba(168, 191, 128, 0.95)),url('https://www.themayor.eu/web/files/articles/7912/main_image/thumb_1200x630_young-people-dancing-night-club-concert-festival.jpg');
+    background-repeat: no-repeat;
+    
+}
