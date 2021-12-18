@@ -189,39 +189,41 @@
         const keys = Object.keys(data);
         for (let i = 0; i < keys.length; i++) {              
           const key = keys[i];
-          if(username == data[key].username) {
+          if(username.toLowerCase() == (data[key].username).toLowerCase()) {
             document.getElementById("error1").innerHTML = "Username already taken!";
             return;
-          }       
-              
+          }else if (email.toLowerCase() == (data[key].email).toLowerCase()) {
+            document.getElementById("error1").innerHTML = "Email already taken!";
+            return;
+          }
         }
-      });
+        var emailList = email.split("@");
 
-      var emailList = email.split("@");
+        if (email.search("@") == -1 || emailList[0].length < 3) {
+          document.getElementById("error1").innerHTML = "Invalid Email!";
+          return;
+        }
 
-      if (email.search("@") == -1 || emailList[0].length < 3) {
-        document.getElementById("error1").innerHTML = "Invalid Email!";
-        return;
-      }
-      
-      
-      const record =
-      {
-        username       : username,
-		    email       :	email,
-        spotify :	spotify,
-        picture  :	picture,
-		    genre  :	genre,
-        password : password
-      };
-      
-      const newPostKey = push(child(ref(myDB),"/artists/")).key;
-      const updates = {};
-      
-      updates["/artists/" + newPostKey] = record;
-      window.alert("New record inserted with key : " + newPostKey);
-      
-      return update(ref(myDB),updates);
+
+        const record =
+        {
+          username       : username.toLowerCase(),
+          email       :	email.toLowerCase(),
+          spotify :	spotify,
+          picture  :	picture,
+          genre  :	genre,
+          password : password
+        };
+
+        const newPostKey = push(child(ref(myDB),"/artists/")).key;
+        const updates = {};
+
+        updates["/artists/" + newPostKey] = record;
+        window.alert("New record inserted with key : " + newPostKey);
+
+        return update(ref(myDB),updates);
+        }
+      );
     };  
 
 
@@ -243,14 +245,14 @@
       onValue(dbRef, (snapshot2) => {
         const data = snapshot2.val();
         const keys = Object.keys(data);
-        for (let i = 0; i < keys.length; i++) {              
-          const key = keys[i];
-          if(username == data[key].username) {
+        for (let j = 0; j < keys.length; j++) {              
+          const key = keys[j];
+          if(username.toLowerCase() == (data[key].username).toLowerCase()) {
           	console.log("username verified");
             if (password == data[key].password) {
             	const record =
                 {
-                  username       : username,
+                  username       : username.toLowerCase(),
                   location :	location,
                   date  :	date,
                   tickets : tickets
