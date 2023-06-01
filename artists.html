@@ -3,7 +3,6 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="https://glitch.com/favicon.ico" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -58,16 +57,15 @@
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-analytics.js";
   import { getDatabase,ref,set,child,push,update,onValue } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-database.js";
     
-  const firebaseConfig =
-  {
-    apiKey: "AIzaSyCLUsdPUonXrCFBwFcxzxyEVtSjU-fBebg",
-    authDomain: "iosolde-project-16-04-01.firebaseapp.com",
-    databaseURL: "https://iosolde-project-16-04-ALT1-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "iosolde-project-16-04-01",
-    storageBucket: "iosolde-project-16-04-ALT1.appspot.com",
-    messagingSenderId: "750590606689",
-    appId: "1:750590606689:web:f30cc2bee05df5db129920",
-    measurementId: "G-ZS0XKHPV5T"  
+  const firebaseConfig = {
+    apiKey: "AIzaSyD6yU5aGbZA3g0Mg8Ju9fpIUimKLsYYUAE",
+    authDomain: "temp-database-dbc86.firebaseapp.com",
+    projectId: "temp-database-dbc86",
+    storageBucket: "temp-database-dbc86.appspot.com",
+    messagingSenderId: "168744299779",
+    appId: "1:168744299779:web:d8bbd7fdb07df596918d36",
+    measurementId: "G-WPFR4SY60W",
+    databaseURL: 'https://temp-database-dbc86-default-rtdb.europe-west1.firebasedatabase.app'
   };
 
   const app = initializeApp(firebaseConfig);
